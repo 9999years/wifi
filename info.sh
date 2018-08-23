@@ -15,7 +15,7 @@ Content-Type: multipart/alternative; boundary=\"$BOUNDARY\"
 --$BOUNDARY
 Content-Type: text/html; charset=\"utf-8\"
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
 "
 
