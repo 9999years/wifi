@@ -6,6 +6,13 @@ IP="$(./get_ip.sh)"
 
 BOUNDARY="$RANDOM-$RANDOM-$RANDOM"
 
+# evaluates a command and prettily prints its output in email-friendly format
+function echo_cmd() {
+	echo "<p><b>$@</b><br><pre>"
+	eval "$@"
+	echo "</pre>"
+}
+
 echo "From: Raspberry Pi <637275+rpi@gmail.com>
 To: Rebecca Turner <637275@gmail.com>
 Subject: Raspberry Pi IP address: $IP
@@ -19,17 +26,12 @@ Content-Transfer-Encoding: 8bit
 
 "
 
-echo "</pre><p><b>ifconfig $INTERFACE</b><br><pre>"
-ifconfig wlan0
-echo "</pre><p><b>iwconfig $INTERFACE</b><br><pre>"
-iwconfig wlan0
-echo "</pre><p><b>wpa_cli -i$INTERFACE status verbose</b><br><pre>"
-wpa_cli "-i$INTERFACE" status verbose
+echo_cmd ifconfig wlan0
+echo_cmd iwconfig wlan0
+echo_cmd wpa_cli "-i$INTERFACE" status verbose
 # actual net check
-echo "</pre><p><b>ping google.com -c 1</b><br><pre>"
-ping google.com -c 1
-echo "</pre><p><b>route</b><br><pre>"
-route
+echo_cmd ping google.com -c 1
+echo_cmd route
 
 echo ""
 echo "--$BOUNDARY--"
